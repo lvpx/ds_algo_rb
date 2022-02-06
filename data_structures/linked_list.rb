@@ -17,6 +17,13 @@ class LinkedList
     @head = head
   end
 
+  # Add to the front of the LinkedList
+  def prepend(val)
+    node = Node.new(val)
+    node.next = @head
+    @head = node
+  end
+
   # Add to the end of the Linked List
   def append(val)
     if @head.nil?
@@ -37,25 +44,27 @@ class LinkedList
     return if node.nil? 
     if node.val.equal? val 
       @head = node.next
-      return
+      return val
     end
     until node.next.nil?
       if node.next.val.equal? val
         node.next = node.next.next
-        return
+        return val
       end
       node = node.next
     end
+    return nil
   end
 
   def visit
     return "#[]" if @head.nil?
     node = @head
-    str = '#['
+    str = '[h: '
     until node.next.nil?
-      str << " <- #{node.val}"
+      str << node.val.to_s
       node = node.next
+      str << " :-> "
     end
-    str << " <-#{node.val}]"
+    str << node.val.to_s << "]"
   end
 end
